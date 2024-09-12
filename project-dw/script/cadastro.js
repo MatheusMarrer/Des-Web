@@ -1,4 +1,6 @@
-function cadastro(){
+const url = "https://go-wash-api.onrender.com/api/user"
+
+async function cadastro(){
 	
 	let name = document.getElementById('name').value;
 		if(name){
@@ -18,5 +20,29 @@ function cadastro(){
 			alert("preencha termos");
 		}	
 	
-	
+	let api = await fetch(url,{
+		method:"POST",
+		body:JSON.stringify(
+			{
+			"name":name,
+			"email":email,
+			"user_type_id":1,
+			"password": password,
+			"cpf_cnpj": cpf_cnpj,
+			"terms": 1,
+			"birthday": birthday    
+			}
+		),
+		headers:{
+			'Content-Type':'application/json'
+		}
+	})
+		if(api.ok){
+		let resposta = await api.json();
+		console.log(resposta)
+		
+		return false
+		}
+
+		console.log("Erro");
 }	
